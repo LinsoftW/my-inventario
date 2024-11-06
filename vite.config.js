@@ -8,6 +8,7 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
+  publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
   // base: '/my-inventario/',
   resolve: {
     alias: {
@@ -16,6 +17,6 @@ export default defineConfig({
   }
 })
 
-module.exports = {
-  publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
-};
+// module.exports = {
+//   publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
+// };
