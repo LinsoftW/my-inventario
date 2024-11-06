@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
-  // base: '/my-inventario/',
+  publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
+  base: '/my-inventario/',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
