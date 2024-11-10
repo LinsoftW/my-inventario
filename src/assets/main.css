@@ -1,6 +1,8 @@
 /* @import './base.css'; */
+@import './new/vendor/fontawesome-free/css/all.min.css';
+@import './new/css/sb-admin-2.min.css';
 
-#app {
+/* #app {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
@@ -32,7 +34,7 @@ a,
     grid-template-columns: 1fr 1fr;
     padding: 0 2rem;
   }
-}
+} */
 
 /* @import '/src/assets/new/css/sb-admin-2.min.css';
 @import '/src/assets/new/vendor/fontawesome-free/css/all.min.css'; */
