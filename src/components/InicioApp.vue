@@ -219,22 +219,23 @@
                     <th>59.10</th>
                   </tr> -->
                   <tr v-for="datos in datosPaginados" :key="datos.idcorreo">
-                    <td><img class="img-profile rounded-circle" src="../assets/new/img/undraw_profile_1.svg"> <i
+                    <td style="text-align: end;"><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/undraw_profile_1.svg"> <i
                         class="fas fa-circle text-primary"></i></td>
                     <td>{{ datos.direccion }}</td>
                     <td>{{ datos.codigo }}</td>
-                    <td>
-                      <button class="btn btn-success btn-sm btn-circle" @click="clickEditar(datos.idcorreo)"><span
-                          class="material-icons">edit</span></button>
+                    <td style="text-align: center;">
+                      <button class="btn btn-success btn-sm btn-circle" @click="clickEditar(datos.idcorreo)" v-b-tooltip.hover title="Editar"><span
+                          class="fas fa-edit"></span></button>&nbsp;
                       <button class="btn btn-danger btn-sm btn-circle"
-                        @click="borrarU(datos.idcorreo, datos.direccion)"><span
-                          class="material-icons">delete</span></button>
+                        @click="borrarU(datos.idcorreo, datos.direccion)" v-b-tooltip.hover title="Eliminar"><span
+                          class="fas fa-trash"></span></button>
                     </td>
                   </tr>
 
                 </tbody>
               </table>
-              <nav aria-label="Page navigation example"><br>
+              <div class="text-center">
+                <nav aria-label="Page navigation example" style="text-align: center;">
                 <label>Mostrando </label>
                 <select style="width: 60px" @change="consultar()" v-model="elementPagina">
                   <option value="5">5</option>
@@ -245,7 +246,7 @@
                 </select>
 
                 <label>registros </label>
-                <ul class="pagination Mestilo">
+                <ul class="pagination Mestilo btn-sm">
 
                   <li class="page-item" :class="`${disableA}`" @click="obtenerAnterior"><a class="page-link"
                       href="#">Anterior</a></li>
@@ -256,6 +257,8 @@
                       href="#">Siguiente</a></li>
                 </ul>
               </nav>
+              </div>
+
             </div>
 
             <div class="mt-4 text-center small">
@@ -314,7 +317,7 @@
                 <tbody>
                   <tr>
                     <th>1</th>
-                    <th><img class="img-profile rounded-circle" src="../assets/new/img/tablet.jpg"
+                    <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/tablet.jpg"
                         style="width: 50px; height:50px"> </th>
                     <th>F0093</th>
                     <th>Tablet Samsung</th>
@@ -325,7 +328,7 @@
                   </tr>
                   <tr>
                     <th>2</th>
-                    <th><img class="img-profile rounded-circle" src="../assets/new/img/mochila.jpg"
+                    <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/mochila.jpg"
                         style="width: 50px; height:50px"></th>
                     <th>300562</th>
                     <th>Mochila</th>
@@ -353,6 +356,12 @@
 
 import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import axios from 'axios';
+import router from '@/router';
+
+let recarga = ref(false);
+
+// const Cosc_Clar = ref('info');
 
 const route = useRoute();
 const bodyLogin = document.getElementById('page-top');
@@ -361,13 +370,17 @@ onMounted(async () => {
   if (route.path == '/inicio') {
     bodyLogin.classList.remove('bg-gradient-info');
     bodyLogin.classList.add('sidebar-toggled');
-    console.log("INICIO")
+    // console.log("INICIO")
   }
+  // Cosc_Clar.value = localStorage.getItem('background');
   consultar();
+  if (recarga.value) {
+    router.go();
+    recarga.value = false;
+  }
 })
 
 // CRUD completo
-import axios from 'axios';
 
 let errors = ref([]);
 
@@ -560,7 +573,8 @@ const consultar = async () => {
       datosSinPaginar.value = response.data;
       cantidad.value = Math.ceil(response.data.length / elementPagina.value);
       obtenerPagina(1);
-    })
+      // router.go();
+    });
 
 }
 

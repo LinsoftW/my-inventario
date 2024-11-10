@@ -3,7 +3,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul class="navbar-nav bg-gradient-info sidebar sidebar-dark accordion" id="accordionSidebar">
+    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion'" id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
@@ -164,7 +164,7 @@
               <input type="text" class="form-control bg-light border-0 small" placeholder="Que desea buscar..."
                 aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button class="btn btn-info" type="button">
+                <button :class="'btn btn-'+Cosc_Clar " type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -188,7 +188,7 @@
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Que desea buscar..."
                       aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button class="btn btn-info" type="button">
+                      <button :class="'btn btn-'+Cosc_Clar " type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -330,6 +330,10 @@
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cambiar imagen de perfil
                 </a>
+                <!-- <a class="dropdown-item" href="#" @click="Cambia_Color">
+                  <i class="fas fa-edit fa-sm fa-fw mr-2 text-gray-400"></i>
+                  Oscuro / Default
+                </a> -->
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
                   Configuración
@@ -354,7 +358,7 @@
 
         <!-- Begin Page Content -->
         <div v-if="route.path == '/inicio'">
-          <InicioApp />
+          <InicioApp :key="recarga" />
         </div>
         <div v-if="route.path == '/pedidos'">
           <PedidosApp />
@@ -409,7 +413,7 @@
         <div class="modal-body">Esta seguro que desea salir?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a class="btn btn-info" href="/login">Salir</a>
+          <a :class="'btn btn-'+Cosc_Clar " href="/login">Salir</a>
         </div>
       </div>
     </div>
@@ -428,6 +432,23 @@ import { useRoute } from 'vue-router'
 import { onMounted } from 'vue';
 import SucursalApp from '@/components/SucursalApp.vue';
 import ProductosApp from '@/components/ProductosApp.vue';
+
+const Cosc_Clar = ref('info');
+
+const recarga = ref(0);
+
+onMounted( async () => {
+  recarga.value += 1;
+})
+
+const Cambia_Color = () => {
+  if (Cosc_Clar.value == 'info' ){
+    Cosc_Clar.value = 'dark';
+  }else{
+    Cosc_Clar.value = 'info';
+  }
+// localStorage.setItem("background", Cosc_Clar.value);
+}
 
 const route = useRoute();
 
@@ -490,27 +511,6 @@ const cargarImagen = async () => {
     successFull("Imagen cambiada satisfactoriamente.", "top-start");
   }
 }
-
-const bodyLogin = document.getElementById("page-top");
-
-//onMounted( async () => {
-  //  bodyLogin.classList.add("sidebar-toggled");
-  //  bodyLogin.classList.remove("bg-gradient-info");
-  // if (userName.value == null) {
-  //   router.push('/');
-  // } else {
-  //   if ((route.path == '/inicio') || (route.path == '/pedidos') || (route.path == '/inventario')) {
-  //     bodyLogin.classList.remove('bg-gradient-info');
-  //     // console.log(route.path);
-  //     bodyLogin.classList.add('sidebar-toggled');
-  //   } else {
-  //     bodyLogin.classList.add('bg-gradient-info');
-
-  //   }
-  // }
-
-
-//})
 
 </script>
 

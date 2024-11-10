@@ -54,15 +54,15 @@
                 <tbody>
                   <tr>
                     <th>1</th>
-                    <th><img class="img-profile rounded-circle" src="../assets/new/img/tablet.jpg"
+                    <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/tablet.jpg"
                         style="width: 50px; height:50px"> </th>
                     <th>F0093</th>
                     <th>Tablet Samsung</th>
                     <th>100usd</th>
                     <th>Defecto en el chasi</th>
-                    <th><a class="btn btn-warning btn-circle" v-b-tooltip.hover title="Editar">
+                    <th style="text-align: center;"><a class="btn btn-success btn-circle" v-b-tooltip.hover title="Editar">
                       <i class="fa fa-edit"></i>
-                    </a>
+                    </a>&nbsp;
                     <a class="btn btn-danger btn-circle" v-b-tooltip.hover title="Eliminar">
                       <i class="fas fa-trash"></i>
                     </a>

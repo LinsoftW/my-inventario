@@ -40,7 +40,7 @@
             <tbody>
               <tr>
                 <th>1</th>
-                <th><img class="img-profile rounded-circle" src="../assets/new/img/tablet.jpg"
+                <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/tablet.jpg"
                     style="width: 50px; height:50px"> </th>
                 <th>F0093</th>
                 <th>Tablet Samsung</th>
@@ -48,7 +48,7 @@
                 <th>5%</th>
                 <th>0</th>
                 <th>En Stock</th>
-                <th>
+                <th style="text-align: center;">
                   <a class="btn btn-info btn-icon-split" v-b-tooltip.hover title="Conformar pedidos">
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
@@ -60,7 +60,7 @@
               </tr>
               <tr>
                 <th>2</th>
-                <th><img class="img-profile rounded-circle" src="../assets/new/img/mochila.jpg"
+                <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/mochila.jpg"
                     style="width: 50px; height:50px"></th>
                 <th>300562</th>
                 <th>Mochila</th>
@@ -68,7 +68,7 @@
                 <th>5%</th>
                 <th>0</th>
                 <th>Entregado al mensajero</th>
-                <th>
+                <th style="text-align: center;">
                   <a class="btn btn-info btn-icon-split" v-b-tooltip.hover title="Conformar pedidos">
                     <span class="icon text-white-50">
                       <i class="fas fa-check"></i>
