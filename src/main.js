@@ -1,4 +1,4 @@
-// import './assets/main.css'
+import './assets/main.css'
 // import '/src/assets/new/vendor/jquery/jquery.min.js'
 import '@/assets/new/vendor/jquery/jquery';
 import '@/assets/new/vendor/bootstrap/js/bootstrap.bundle.min.js';
