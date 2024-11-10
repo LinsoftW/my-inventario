@@ -1,5 +1,6 @@
 import LoginApp from '@/components/LoginApp.vue'
 import MenuApp from '@/views/MenuApp.vue'
+import PrincipalApp from '@/views/PrincipalApp.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -13,7 +14,7 @@ const router = createRouter({
         {
             path: '/inicio',
             name: 'inicio',
-            component: MenuApp
+            component: PrincipalApp
         },
         {
             path: '/pedidos',

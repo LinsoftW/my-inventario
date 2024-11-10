@@ -437,18 +437,17 @@ const Cosc_Clar = ref('info');
 
 const recarga = ref(0);
 
-onMounted( async () => {
-  recarga.value += 1;
-})
+// onMounted( () => {
+//   console.log('Ya2');
+// })
 
-const Cambia_Color = () => {
-  if (Cosc_Clar.value == 'info' ){
-    Cosc_Clar.value = 'dark';
-  }else{
-    Cosc_Clar.value = 'info';
-  }
-// localStorage.setItem("background", Cosc_Clar.value);
-}
+// const Cambia_Color = () => {
+//   if (Cosc_Clar.value == 'info' ){
+//     Cosc_Clar.value = 'dark';
+//   }else{
+//     Cosc_Clar.value = 'info';
+//   }
+// }
 
 const route = useRoute();
 
@@ -514,4 +513,5 @@ const cargarImagen = async () => {
 
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+</style>
