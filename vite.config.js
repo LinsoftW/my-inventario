@@ -9,8 +9,8 @@ export default defineConfig({
   plugins: [
     vue(),
   ],
-  publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/' : '/',
-  // publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
+  // publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/my-inventario/' : '/',
+  publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
