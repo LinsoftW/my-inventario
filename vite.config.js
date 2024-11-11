@@ -5,11 +5,11 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/my-inventario/",
+  //base: "/my-inventario/",
   plugins: [
     vue(),
   ],
-  // publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/my-inventario/' : '/',
+   publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/' : '/',
   // publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
   resolve: {
     alias: {
