@@ -86,7 +86,7 @@ let bodyLogin1 = document.getElementById('page-top');
 onMounted(async () => {
   bodyLogin1.classList.add('bg-gradient-info');
   bodyLogin1.classList.remove('sidebar-toggled');
-  consultar();
+  // consultar();
 })
 
 const successFull = (mensaje, posicion) => {
@@ -123,6 +123,7 @@ const autenticate = () => {
   if (form.nombre == 'admin' && form.passw == '123') {
     localStorage.setItem("userName", form.nombre);
     successFull('Bienvenido al sistema', 'top-end');
+    // window.location = '/inicio';
     router.push('/inicio')
   } else {
     Swal.fire({

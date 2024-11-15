@@ -3,7 +3,7 @@
 
     <!-- Page Heading -->
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-      <h1 class="h3 mb-0 text-gray-800">DASHBOARD</h1>
+      <h1 class="h3 mb-0 text-gray-800">PÁGINA INICIAL</h1>
       <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" v-b-tooltip.hover
         title="Generar resumen diario"><i class="fas fa-download fa-sm text-white-50"></i> Generar Resumen</a>
     </div>
@@ -359,7 +359,7 @@ import { useRoute } from 'vue-router';
 import axios from 'axios';
 import router from '@/router';
 
-let recarga = ref(false);
+// let recarga = ref(false);
 
 // const Cosc_Clar = ref('info');
 
@@ -367,17 +367,14 @@ const route = useRoute();
 const bodyLogin = document.getElementById('page-top');
 
 onMounted(async () => {
-  if (route.path == '/inicio') {
+  // if (route.path == '/inicio') {
     bodyLogin.classList.remove('bg-gradient-info');
-    bodyLogin.classList.add('sidebar-toggled');
+    // bodyLogin.classList.add('sidebar-toggled');
     // console.log("INICIO")
-  }
+  // }
   // Cosc_Clar.value = localStorage.getItem('background');
-  consultar();
-  if (recarga.value) {
-    router.go();
-    recarga.value = false;
-  }
+  // consultar();
+
 })
 
 // CRUD completo

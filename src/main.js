@@ -1,9 +1,9 @@
-// import './assets/main.css';
+import './assets/main.css';
 // import '/src/assets/new/vendor/jquery/jquery.min.js'
-// import '@/assets/new/vendor/jquery/jquery.min.js';
-// import '@/assets/new/vendor/bootstrap/js/bootstrap.bundle.min.js';
-// import '@/assets/new/vendor/jquery-easing/jquery.easing.min.js';
-// import '@/assets/new/js/sb-admin-2.min.js';
+import '@/assets/new/vendor/jquery/jquery.min.js';
+import '@/assets/new/vendor/bootstrap/js/bootstrap.bundle.min.js';
+import '@/assets/new/vendor/jquery-easing/jquery.easing.min.js';
+import '@/assets/new/js/sb-admin-2.min.js';
 import Swal from 'sweetalert2';
 
 import { createApp } from 'vue'

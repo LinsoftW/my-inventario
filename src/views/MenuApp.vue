@@ -3,7 +3,7 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion'" id="accordionSidebar">
+    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion ' + Ctoggled " id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
@@ -12,7 +12,7 @@
 
         </div>
         <!-- <img class="sidebar-card-illustration mb-2" src="../assets/new/img/inventario.jpg" style="width: 30px; height:30px" alt="..."> -->
-        <div class="sidebar-brand-text mx-3">MyInventario <sup>1</sup></div>
+        <div class="sidebar-brand-text mx-3">MyInventario <sup>1.0</sup></div>
       </a>
 
       <!-- Divider -->
@@ -24,7 +24,7 @@
         <router-link class="button" to="/inicio">
           <a class="nav-link">
             <i class="fas fa-fw fa-home"></i>
-            <span>Inicio</span></a>
+            <span>INICIO</span></a>
 
         </router-link>
 
@@ -42,11 +42,14 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
           <i class="fas fa-fw fa-cog"></i>
-          <span>Herramientas</span>
+          <span>GESTIÓN
+          </span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Gestionar:</h6>
+            <!-- <a class="collapse-item" @click="click_inventario">Inventario</a>
+            <a class="collapse-item" @click="click_pedidos">Pedidos</a> -->
             <router-link class="button" to="/inventario">
               <a class="collapse-item">Inventario</a>
             </router-link>
@@ -63,14 +66,16 @@
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
           aria-expanded="true" aria-controls="collapseUtilities">
           <i class="fas fa-fw fa-wrench"></i>
-          <span>Administrar</span>
+          <span>ADMINISTRACIÓN</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
             <h6 class="collapse-header">Administrar:</h6>
+            <!-- <a class="collapse-item button" @click="click_sucursales">Sucursales</a> -->
             <router-link class="button" to="/sucursales">
               <a class="collapse-item">Sucursales</a>
             </router-link>
+            <!-- <a class="collapse-item" @click="click_productos"> Productos</a> -->
             <router-link class="button" to="/productos">
               <a class="collapse-item">Productos</a>
             </router-link>
@@ -130,7 +135,7 @@
 
       <!-- Sidebar Toggler (Sidebar) -->
       <div class="text-center d-none d-md-inline">
-        <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        <button class="rounded-circle border-0" id="sidebarToggle" @click="MueveMenu"></button>
       </div>
 
       <!-- Sidebar Message -->
@@ -154,7 +159,7 @@
         <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
           <!-- Sidebar Toggle (Topbar) -->
-          <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+          <button id="sidebarToggleTop" @click="MueveMenu" class="btn btn-link d-md-none rounded-circle mr-3">
             <i class="fa fa-bars"></i>
           </button>
 
@@ -358,19 +363,20 @@
 
         <!-- Begin Page Content -->
         <div v-if="route.path == '/inicio'">
-          <InicioApp :key="recarga" />
+          <InicioApp :key="Kinicio"/>
+          <!-- <InicioApp /> -->
         </div>
         <div v-if="route.path == '/pedidos'">
-          <PedidosApp />
+          <PedidosApp :key="Kpedidos" />
         </div>
         <div v-if="route.path == '/sucursales'">
-          <SucursalApp />
+          <SucursalApp :key="Ksucursales"/>
         </div>
         <div v-if="route.path == '/productos'">
-          <ProductosApp />
+          <ProductosApp :key="Kproductos"/>
         </div>
         <div v-if="route.path == '/inventario'">
-          <InventarioApp />
+          <InventarioApp :key="Kinventario"/>
         </div>
 
         <!-- /.container-fluid -->
@@ -427,18 +433,66 @@ import InicioApp from '@/components/InicioApp.vue';
 import InventarioApp from '@/components/InventarioApp.vue';
 import PedidosApp from '@/components/PedidosApp.vue';
 import router from '@/router';
-import { ref } from 'vue';
+import { onUpdated, ref } from 'vue';
 import { useRoute } from 'vue-router'
 import { onMounted } from 'vue';
 import SucursalApp from '@/components/SucursalApp.vue';
 import ProductosApp from '@/components/ProductosApp.vue';
 
+const Kinicio = ref(0);
+const Kpedidos = ref(0);
+const Kinventario = ref(0);
+const Kproductos = ref(0);
+const Ksucursales = ref(0);
+
 const Cosc_Clar = ref('info');
 
-const recarga = ref(0);
+const Ctoggled = ref('');
 
+const bodyLogin = document.getElementById('page-top');
+
+const ulBody = document.getElementById('accordionSidebar');
+
+const MueveMenu = () => {
+  if (Ctoggled.value == '') {
+    Ctoggled.value = 'toggled';
+  }else{
+    Ctoggled.value = '';
+  }
+
+  // router.go()
+  // console.log("OKK")
+  // bodyLogin.classList.add('sidebar-toggled');
+  // ulBody.classList.add('toggled');
+}
+
+const click_inicio = () => {
+  window.location = '/inicio';
+}
+
+const click_pedidos = () => {
+  window.location = '/pedidos';
+}
+
+const click_inventario = () => {
+  window.location = '/inventario';
+}
+
+const click_sucursales = () => {
+  window.location = '/sucursales';
+}
+
+const click_productos = () => {
+  window.location = '/productos';
+}
+
+// onUpdated(() => {
+//   // text content should be the same as current `count.value`
+//   console.log('Actual')
+//   Kinicio.value += 1;
+// })
 // onMounted( () => {
-//   console.log('Ya2');
+//   Kinicio.value += 1;
 // })
 
 // const Cambia_Color = () => {
@@ -448,6 +502,26 @@ const recarga = ref(0);
 //     Cosc_Clar.value = 'info';
 //   }
 // }
+
+const Vpaginas = ref(false);
+
+const paginas = () => {
+  if (route.path == "/inicio") {
+    Vpaginas.value = 1;
+  }
+  if (route.path == "/inventario") {
+    Vpaginas.value = 2;
+  }
+  if (route.path == "/pedidos") {
+    Vpaginas.value = 3;
+  }
+  if (route.path == "/sucursales") {
+    Vpaginas.value = 4;
+  }
+  if (route.path == "/productos") {
+    Vpaginas.value = 5;
+  }
+}
 
 const route = useRoute();
 

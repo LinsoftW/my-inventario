@@ -128,7 +128,7 @@
                     <th v-if="sidescripcion">DESCRIPCION</th>
                     <th v-if="siobservaciones">OBSERVACIONES</th>
                     <th v-if="siestado">ESTADO</th>
-                    <th>ACCIONES</th>
+                    <th v-if="siacciones">ACCIONES</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -141,7 +141,7 @@
                     <th v-if="sidescripcion">100usd</th>
                     <th v-if="siobservaciones">Defecto en el chasi</th>
                     <th v-if="siestado">En Stock</th>
-                    <th style="text-align: center;">
+                    <th v-if="siacciones" style="text-align: center;">
                       <div class="dropdown mb-4">
                         <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton"
                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -188,7 +188,7 @@
                 <li><input type="checkbox" name="descripcion" :checked="sidescripcion" @change="quitardescripcion"> Descripción</li>
                 <li><input type="checkbox" name="observaciones" :checked="siobservaciones" @change="quitarobservacion"> Observaciones</li>
                 <li><input type="checkbox" name="estado" :checked="siestado" @change="quitarestado"> Estado</li>
-
+                <li><input type="checkbox" name="acciones" :checked="siacciones" @change="quitaracciones"> Acciones</li>
               </ol>
 
           </div>
@@ -212,6 +212,7 @@ const sidescripcion = ref(true);
 const siestado = ref(true);
 const siobservaciones = ref(true);
 const sisucursal = ref(true);
+const siacciones = ref(true);
 
 const AColumnas = () => {
     siFoto.value = false;
@@ -220,6 +221,7 @@ const AColumnas = () => {
     siobservaciones.value = false;
     siestado.value = false;
     sidescripcion.value = false;
+    siacciones.value = false;
 }
 
 const MostrarTodas = () => {
@@ -229,6 +231,7 @@ const MostrarTodas = () => {
     siobservaciones.value = true;
     siestado.value = true;
     sidescripcion.value = true;
+    siacciones.value = true;
 }
 
 const quitarFoto = () => {
@@ -253,6 +256,10 @@ const quitarobservacion = () => {
 
 const quitarcodigo = () => {
   sicodigo.value = !sicodigo.value;
+}
+
+const quitaracciones = () => {
+  siacciones.value = !siacciones.value;
 }
 
 </script>
