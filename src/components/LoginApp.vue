@@ -65,6 +65,7 @@
 import router from '@/router';
 import { onMounted, reactive, ref } from 'vue';
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 let listado = ref([]);
 

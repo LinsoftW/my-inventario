@@ -205,6 +205,7 @@
 </template>
 <script setup>
 import { ref } from 'vue';
+import Swal from 'sweetalert2';
 
 const siFoto = ref(true);
 const sicodigo = ref(true);

@@ -358,6 +358,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { useRoute } from 'vue-router';
 import axios from 'axios';
 import router from '@/router';
+import Swal from 'sweetalert2';
 
 // let recarga = ref(false);
 

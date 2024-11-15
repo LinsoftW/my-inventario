@@ -438,6 +438,7 @@ import { useRoute } from 'vue-router'
 import { onMounted } from 'vue';
 import SucursalApp from '@/components/SucursalApp.vue';
 import ProductosApp from '@/components/ProductosApp.vue';
+import Swal from 'sweetalert2';
 
 const Kinicio = ref(0);
 const Kpedidos = ref(0);
