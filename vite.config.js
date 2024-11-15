@@ -5,11 +5,15 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vite.dev/config/
 export default defineConfig({
+<<<<<<< HEAD
   base: "/",
+=======
+  //base: "/my-inventario/",
+>>>>>>> 57c9b298f1f6d7d289d16b4f40bb518478eca2b9
   plugins: [
     vue(),
   ],
-  // publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/my-inventario/' : '/',
+   publicPath: process.env.NODE_ENV === 'production' ? '/' + process.env.CI_PROJECT_NAME + '/' : '/',
   // publicPath: process.env.NODE_ENV === "production" ? "/my-inventario/" : "/",
   resolve: {
     alias: {
