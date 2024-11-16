@@ -3,13 +3,14 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion ' + Ctoggled " id="accordionSidebar">
+    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion ' + Ctoggled "
+      id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
-          <i class="fas fa-laugh-wink"></i>
-
+          <!-- <i class="fas fa-laugh-wink"></i> -->
+          <img width="40" height="40" src="/clipboard-list.png" alt="clipboard-list"/>
         </div>
         <!-- <img class="sidebar-card-illustration mb-2" src="../assets/new/img/inventario.jpg" style="width: 30px; height:30px" alt="..."> -->
         <div class="sidebar-brand-text mx-3">MyInventario <sup>1.0</sup></div>
@@ -41,20 +42,26 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true"
           aria-controls="collapseTwo">
-          <i class="fas fa-fw fa-cog"></i>
-          <span>Gestión
+          <i class="fas fa-fw fa-eye"></i>
+          <span>CONSULTAS
           </span>
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Gestionar:</h6>
+            <h6 class="collapse-header">Consultar:</h6>
             <!-- <a class="collapse-item" @click="click_inventario">Inventario</a>
             <a class="collapse-item" @click="click_pedidos">Pedidos</a> -->
+            <router-link class="button" to="/user">
+              <a class="collapse-item"><i class="fas fa-fw fa-eye"></i> Usuarios</a>
+            </router-link>
             <router-link class="button" to="/inventario">
-              <a class="collapse-item">Inventario</a>
+              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Inventario</a>
             </router-link>
             <router-link class="button" to="/pedidos">
-              <a class="collapse-item">Pedidos</a>
+              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Pedidos</a>
+            </router-link>
+            <router-link class="button" to="/sucursales">
+              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Sucursales</a>
             </router-link>
             <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
           </div>
@@ -65,20 +72,29 @@
       <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
           aria-expanded="true" aria-controls="collapseUtilities">
-          <i class="fas fa-fw fa-wrench"></i>
-          <span>Administración</span>
+          <i class="fas fa-fw fa-cog"></i>
+          <span>GESTIÓN</span>
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <h6 class="collapse-header">Administrar:</h6>
+            <h6 class="collapse-header">Gestionar:</h6>
             <!-- <a class="collapse-item button" @click="click_sucursales">Sucursales</a> -->
-            <router-link class="button" to="/sucursales">
-              <a class="collapse-item">Sucursales</a>
+            <router-link class="button" to="/gest_user">
+              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Usuarios</a>
+            </router-link>
+            <router-link class="button" to="/gest_inventario">
+              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Inventario</a>
+            </router-link>
+            <router-link class="button" to="/gest_pedidos">
+              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Pedidos</a>
+            </router-link>
+            <router-link class="button" to="/gest_sucursales">
+              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Sucursales</a>
             </router-link>
             <!-- <a class="collapse-item" @click="click_productos"> Productos</a> -->
-            <router-link class="button" to="/productos">
+            <!-- <router-link class="button" to="/productos">
               <a class="collapse-item">Productos</a>
-            </router-link>
+            </router-link> -->
             <!-- <a class="collapse-item" href="#">Otros</a> -->
             <!-- <a class="collapse-item" href="utilities-border.html">Borders</a>
                         <a class="collapse-item" href="utilities-animation.html">Animations</a>
@@ -363,20 +379,26 @@
 
         <!-- Begin Page Content -->
         <div v-if="route.path == '/inicio'">
-          <InicioApp :key="Kinicio"/>
+          <InicioApp :key="Kinicio" />
           <!-- <InicioApp /> -->
         </div>
         <div v-if="route.path == '/pedidos'">
           <PedidosApp :key="Kpedidos" />
         </div>
         <div v-if="route.path == '/sucursales'">
-          <SucursalApp :key="Ksucursales"/>
+          <SucursalApp :key="Ksucursales" />
         </div>
-        <div v-if="route.path == '/productos'">
-          <ProductosApp :key="Kproductos"/>
+        <div v-if="route.path == '/gest_inventario'">
+          <ProductosApp :key="Kgest_inventario" />
         </div>
         <div v-if="route.path == '/inventario'">
-          <InventarioApp :key="Kinventario"/>
+          <InventarioApp :key="Kinventario" />
+        </div>
+        <div v-if="route.path == '/user'">
+          <UserApp :key="Kuser" />
+        </div>
+        <div v-if="route.path == '/gest_user'">
+          <GestUserApp :key="Kgest_user" />
         </div>
 
         <!-- /.container-fluid -->
@@ -386,9 +408,10 @@
 
       <!-- Footer -->
       <footer class="sticky-footer bg-white">
+
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
-            <span>Copyright &copy; Todos los derechos reservados</span>
+            <span>Copyright &copy; Todos los derechos reservados. &nbsp; 2024</span>
           </div>
         </div>
       </footer>
@@ -439,6 +462,8 @@ import { onMounted } from 'vue';
 import SucursalApp from '@/components/SucursalApp.vue';
 import ProductosApp from '@/components/ProductosApp.vue';
 import Swal from 'sweetalert2';
+import UserApp from '@/components/UserApp.vue';
+import GestUserApp from '@/components/GestUserApp.vue';
 
 const Kinicio = ref(0);
 const Kpedidos = ref(0);

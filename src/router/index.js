@@ -37,8 +37,18 @@ const router = createRouter({
             component: MenuApp,
         },
         {
-            path: '/productos',
-            name: 'productos',
+            path: '/gest_inventario',
+            name: 'gest_inventario',
+            component: MenuApp,
+        },
+        {
+            path: '/gest_user',
+            name: 'gest_user',
+            component: MenuApp,
+        },
+        {
+            path: '/user',
+            name: 'user',
             component: MenuApp,
         },
     ]
