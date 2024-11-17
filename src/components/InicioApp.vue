@@ -409,12 +409,10 @@ let disableS = ref('');
 
 let setTiempoBusca = '';
 
-const form = reactive({
-  direccion: "",
-  password: "",
-  activo: false,
+const formProductos = reactive({
   codigo: "",
-  fecharegistro: "2024-06-05"
+  descripcion: "",
+  observacion: "",
 })
 
 const clickEditar = async (idSelect) => {
@@ -422,27 +420,29 @@ const clickEditar = async (idSelect) => {
   localStorage.setItem("editar", editar.value);
   id.value = idSelect;
 
-  let response = await axios.get(`http://localhost:8000/correos/${id.value}`)
+  let response = await axios.get(`http://localhost:8000/public/api/nom/productos/${id.value}`)
     .then((response) => {
-      form.direccion = response.data.direccion;
-      form.codigo = response.data.codigo;
+      formProductos.descripcion = response.data.descripcion;
+      formProductos.codigo = response.data.codigo;
+      formProductos.observacion = response.data.observacion;
     })
 }
 
 const cancelarU = () => {
   editar.value = false;
-  form.direccion = '';
-  form.codigo = '';
+  formProductos.descripcion = '';
+  formProductos.codigo = '';
+  formProductos.observacion = '';
 }
 
 const agregarU = () => {
-  axios.post('http://localhost:8000/correos', form)
+  axios.post('http://localhost:8000/public/api/nom/productos', formProductos)
     .then((response) => {
       // console.log(response)
       consultar();
-      form.direccion = ''
-      form.password = '';
-      form.codigo = '';
+      formProductos.observacion = ''
+      formProductos.descripcion = '';
+      formProductos.codigo = '';
       toast.fire({
         icon: "success",
         title: "Agregado satisfactoriamente."
@@ -458,13 +458,13 @@ const agregarU = () => {
 }
 
 const editarU = () => {
-  axios.put(`http://localhost:8000/correos/${id.value}`, form)
+  axios.put(`http://localhost:8000/public/api/nom/productos/${id.value}`, formProductos)
     .then((response) => {
       // console.log(response)
       consultar();
-      form.direccion = ''
-      form.password = '';
-      form.codigo = '';
+      formProductos.descripcion = ''
+      formProductos.observacion = '';
+      formProductos.codigo = '';
       toast.fire({
         icon: "success",
         title: "Editado satisfactoriamente."
