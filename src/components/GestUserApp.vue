@@ -147,33 +147,40 @@
                 </div>
                 <form class="user">
                   <div class="form-group">
+                    <label class="text-info">Correo electrónico:</label>
                     <input type="text" class="form-control" id="exampleInputEmail"
                       aria-describedby="emailHelp" v-model="form.email" placeholder="Correo electrónico">
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
+                      <label class="text-info">Nombre (s):</label>
                       <input type="text" class="form-control" id="snombre"
                         aria-describedby="emailHelp" v-model="form.nombre" placeholder="Nombre (s)">
                     </div>
                     <div class="form-group col-lg-4">
+                      <label class="text-info">Primer apellido:</label>
                       <input type="text" class="form-control" id="sapellido1"
                         aria-describedby="emailHelp" v-model="form.apellido1" placeholder="Primer apellido">
                     </div>
                     <div class="form-group col-lg-4">
+                      <label class="text-info">Segundo apellido:</label>
                       <input type="text" class="form-control" id="sapellido2"
                         aria-describedby="emailHelp" v-model="form.apellido2" placeholder="Segundo apellido">
                     </div>
                   </div>
                   <div class="form-group">
+                    <label class="text-info">Nombre de usuario:</label>
                     <input type="text" class="form-control" id="susuario" aria-describedby="emailHelp"
                       v-model="form.nombuser" placeholder="Nombre de usuario">
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
+                      <label class="text-info">Teléfono:</label>
                       <input type="text" class="form-control" id="susuario"
                         aria-describedby="emailHelp" v-model="form.telefono" placeholder="Número de teléfono">
                     </div>
                     <div class="form-group col-lg-8">
+                      <label class="text-info">Rol:</label>
                       <select name="rol" id="rol" style="width: 100%; text-align:center" class="text-gray-900 form-control">
                         <option value="Supervisor">Supervisor</option>
                         <option value="Manager">Manager</option>
@@ -183,14 +190,17 @@
                   </div>
 
                   <div class="form-group">
+                    <label class="text-info">Contraseña:</label>
                     <input type="password" v-model="form.passw" class="form-control" id="password"
                       placeholder="Contraseña">
                   </div>
                   <div class="form-group">
+                    <label class="text-info">Repita la contraseña:</label>
                     <input type="password" v-model="form.passw2" class="form-control" id="password2"
                       placeholder="Repita la contraseña">
                   </div>
                   <div class="form-group">
+                    <label class="text-info">Imagen:</label>
                     <input type="file" class="form-control" id="foto"> Seleccione una foto del usuario...
                   </div>
 

@@ -103,19 +103,19 @@
 
                     <div class="row">
                       <div class="form-group col-lg-4">
-                        <label>Código:</label>
+                        <label class="text-info">Código:</label>
                         <input type="text" class="form-control" id="codigo" aria-describedby="emailHelp"
                           v-model="formProductos.codigo" placeholder="Código">
                       </div>
                       <div class="form-group col-lg-8">
-                        <label>Descripción:</label>
+                        <label class="text-info">Descripción:</label>
                         <input type="text" class="form-control" id="descripcion" aria-describedby="emailHelp"
                           v-model="formProductos.descripcion" placeholder="Descripción del producto">
                       </div>
 
                     </div>
                     <div class="form-group ">
-                      <label>Observaciones:</label>
+                      <label class="text-info">Observaciones:</label>
                       <textarea class="form-control" id="observaciones" v-model="formProductos.observacion"
                         placeholder="Observaciones acerca del producto"></textarea>
                       <!-- <input type="text" class="form-control" id="observaciones"
@@ -123,7 +123,7 @@
                     </div>
                     <div class="row">
                       <div class="form-group col-lg-12">
-                        <label>Sucursal:</label>
+                        <label class="text-info">Sucursal:</label>
                       <select name="rol" id="rol" style="width: 100%; text-align:center" placeholder="Sucursal" class="text-gray-900 form-control">
                         <option value="Habana">Habana</option>
                         <option value="Matanzas">Matanzas</option>
@@ -132,7 +132,7 @@
                     </div>
                     </div>
                     <div class="form-group">
-                      <label>Imagen:</label>
+                      <label class="text-info">Imagen:</label>
                     <input type="file" class="form-control" id="foto"> Seleccione una foto para el producto...
                   </div>
 
