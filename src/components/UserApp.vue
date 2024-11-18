@@ -2,8 +2,8 @@
   <div class="container-fluid">
     <div class="d-sm-flex align-items-center justify-content-between mb-4">
       <h1 class="h3 mb-0 text-gray-800">TRABAJADORES</h1>
-      <!-- <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" v-b-tooltip.hover
-        title="Generar resumen diario"><i class="fas fa-plus fa-sm"></i> Agregar trabajador</a> -->
+      <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-info shadow-sm" v-b-tooltip.hover
+        title="Generar resumen diario"><i class="fas fa-plus fa-sm"></i> Agregar trabajador</a>
     </div>
 
     <!-- Usuarios -->

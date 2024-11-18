@@ -3,14 +3,14 @@
   <div id="wrapper">
 
     <!-- Sidebar -->
-    <ul :class="'navbar-nav bg-gradient-'+Cosc_Clar +' sidebar sidebar-dark accordion ' + Ctoggled "
+    <ul :class="'navbar-nav bg-gradient-' + Cosc_Clar + ' sidebar sidebar-dark accordion ' + Ctoggled"
       id="accordionSidebar">
 
       <!-- Sidebar - Brand -->
       <a class="sidebar-brand d-flex align-items-center justify-content-center" href="#">
         <div class="sidebar-brand-icon rotate-n-15">
           <!-- <i class="fas fa-laugh-wink"></i> -->
-          <img width="40" height="40" src="/clipboard-list.png" alt="clipboard-list"/>
+          <img width="40" height="40" src="/clipboard-list.png" alt="clipboard-list" />
         </div>
         <!-- <img class="sidebar-card-illustration mb-2" src="../assets/new/img/inventario.jpg" style="width: 30px; height:30px" alt="..."> -->
         <div class="sidebar-brand-text mx-3">MyInventario <sup>1.0</sup></div>
@@ -52,16 +52,18 @@
             <!-- <a class="collapse-item" @click="click_inventario">Inventario</a>
             <a class="collapse-item" @click="click_pedidos">Pedidos</a> -->
             <router-link class="button" to="/user">
-              <a class="collapse-item"><i class="fas fa-fw fa-eye"></i> Usuarios</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(1)" :key="1" @click="obtenerLinkA(1)"><i
+                  class="fas fa-fw fa-eye"></i> Usuarios</a>
             </router-link>
             <router-link class="button" to="/inventario">
-              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Inventario</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(2)" :key="2" @click="obtenerLinkA(2)"> <i class="fas fa-fw fa-eye"></i>
+                Productos</a>
             </router-link>
             <router-link class="button" to="/pedidos">
-              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Pedidos</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(3)" :key="3" @click="obtenerLinkA(3)"> <i class="fas fa-fw fa-eye"></i> Pedidos</a>
             </router-link>
             <router-link class="button" to="/sucursales">
-              <a class="collapse-item"> <i class="fas fa-fw fa-eye"></i> Sucursales</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(4)" :key="4" @click="obtenerLinkA(4)"> <i class="fas fa-fw fa-eye"></i> Sucursales</a>
             </router-link>
             <!-- <a class="collapse-item" href="cards.html">Cards</a> -->
           </div>
@@ -80,17 +82,18 @@
             <h6 class="collapse-header">Gestionar:</h6>
             <!-- <a class="collapse-item button" @click="click_sucursales">Sucursales</a> -->
             <router-link class="button" to="/gest_user">
-              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Usuarios</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(5)" :key="5" @click="obtenerLinkA(5)"> <i class="fas fa-fw fa-cogs"></i> Usuarios</a>
             </router-link>
             <router-link class="button" to="/gest_inventario">
-              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Inventario</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(6)" :key="6" @click="obtenerLinkA(6)"> <i class="fas fa-fw fa-cogs"></i> Productos</a>
             </router-link>
             <router-link class="button" to="/gest_pedidos">
-              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Pedidos</a>
+              <a class="collapse-item" v-bind:class="ActivaLink(7)" :key="7" @click="obtenerLinkA(7)"> <i class="fas fa-fw fa-cogs"></i> Pedidos</a>
             </router-link>
-            <router-link class="button" to="/gest_sucursales">
-              <a class="collapse-item"> <i class="fas fa-fw fa-cogs"></i> Sucursales</a>
+            <router-link class="button" to="/gest_sucursal">
+              <a class="collapse-item" v-bind:class="ActivaLink(8)" :key="8" @click="obtenerLinkA(8)"> <i class="fas fa-fw fa-cogs"></i> Sucursales</a>
             </router-link>
+            <!-- https://ervchldgqphohvvkotag.supabase.co/storage/v1/object/sign/DiskTwinTecnology/ImgUsuarios/MOTOS.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJEaXNrVHdpblRlY25vbG9neS9JbWdVc3Vhcmlvcy9NT1RPUy5wbmciLCJpYXQiOjE3MzE4Njc4MDksImV4cCI6MTczMjQ3MjYwOX0.qEfY5yBMSPd55zzgJdYPmiphc6oXjHlbMbmBLyl6b0M&t=2024-11-17T18%3A26%3A48.194Z -->
             <!-- <a class="collapse-item" @click="click_productos"> Productos</a> -->
             <!-- <router-link class="button" to="/productos">
               <a class="collapse-item">Productos</a>
@@ -185,7 +188,7 @@
               <input type="text" class="form-control bg-light border-0 small" placeholder="Que desea buscar..."
                 aria-label="Search" aria-describedby="basic-addon2">
               <div class="input-group-append">
-                <button :class="'btn btn-'+Cosc_Clar " type="button">
+                <button :class="'btn btn-' + Cosc_Clar" type="button">
                   <i class="fas fa-search fa-sm"></i>
                 </button>
               </div>
@@ -209,7 +212,7 @@
                     <input type="text" class="form-control bg-light border-0 small" placeholder="Que desea buscar..."
                       aria-label="Search" aria-describedby="basic-addon2">
                     <div class="input-group-append">
-                      <button :class="'btn btn-'+Cosc_Clar " type="button">
+                      <button :class="'btn btn-' + Cosc_Clar" type="button">
                         <i class="fas fa-search fa-sm"></i>
                       </button>
                     </div>
@@ -400,6 +403,9 @@
         <div v-if="route.path == '/gest_user'">
           <GestUserApp :key="Kgest_user" />
         </div>
+        <div v-if="route.path == '/gest_sucursal'">
+          <GetSucursalesApp :key="Kgest_sucursal" />
+        </div>
 
         <!-- /.container-fluid -->
 
@@ -442,7 +448,7 @@
         <div class="modal-body">Esta seguro que desea salir?</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancelar</button>
-          <a :class="'btn btn-'+Cosc_Clar " href="/login">Salir</a>
+          <a :class="'btn btn-' + Cosc_Clar" href="/login">Salir</a>
         </div>
       </div>
     </div>
@@ -453,6 +459,7 @@
 
 <script setup>
 import InicioApp from '@/components/InicioApp.vue';
+import axios from 'axios';
 import InventarioApp from '@/components/InventarioApp.vue';
 import PedidosApp from '@/components/PedidosApp.vue';
 import router from '@/router';
@@ -464,12 +471,17 @@ import ProductosApp from '@/components/ProductosApp.vue';
 import Swal from 'sweetalert2';
 import UserApp from '@/components/UserApp.vue';
 import GestUserApp from '@/components/GestUserApp.vue';
+import GetSucursalesApp from '@/components/GetSucursalesApp.vue';
 
 const Kinicio = ref(0);
 const Kpedidos = ref(0);
 const Kinventario = ref(0);
 const Kproductos = ref(0);
 const Ksucursales = ref(0);
+
+const activalo = ref('');
+
+const link = ref(0);
 
 const Cosc_Clar = ref('info');
 
@@ -479,10 +491,14 @@ const bodyLogin = document.getElementById('page-top');
 
 const ulBody = document.getElementById('accordionSidebar');
 
+const obtenerLinkA = (alink) => {
+   link.value = alink;
+}
+
 const MueveMenu = () => {
   if (Ctoggled.value == '') {
     Ctoggled.value = 'toggled';
-  }else{
+  } else {
     Ctoggled.value = '';
   }
 
@@ -492,42 +508,64 @@ const MueveMenu = () => {
   // ulBody.classList.add('toggled');
 }
 
-const click_inicio = () => {
-  window.location = '/inicio';
+const ActivaLink = (valor) => {
+  if (valor == link.value) {
+    return 'active'
+  }else{
+    return ''
+  }
 }
 
-const click_pedidos = () => {
-  window.location = '/pedidos';
-}
+// const click_inicio = () => {
+//   window.location = '/inicio';
+// }
 
-const click_inventario = () => {
-  window.location = '/inventario';
-}
+// const click_pedidos = () => {
+//   window.location = '/pedidos';
+// }
 
-const click_sucursales = () => {
-  window.location = '/sucursales';
-}
+// const click_inventario = () => {
+//   window.location = '/inventario';
+// }
 
-const click_productos = () => {
-  window.location = '/productos';
-}
+// const click_sucursales = () => {
+//   window.location = '/sucursales';
+// }
+
+// const click_productos = () => {
+//   window.location = '/productos';
+// }
 
 // onUpdated(() => {
 //   // text content should be the same as current `count.value`
 //   console.log('Actual')
 //   Kinicio.value += 1;
 // })
+
+const consultar = async () => {
+  let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
+    .then((response) => {
+      listado.value = response.data.data;
+      // console.log(response.data)
+      datosSinPaginar.value = response.data.data;
+      cantidad.value = Math.ceil(response.data.data.length / elementPagina.value);
+      obtenerPagina(1);
+      // router.go();
+    });
+
+}
+
 // onMounted( () => {
-//   Kinicio.value += 1;
+//   consultar();
 // })
 
-// const Cambia_Color = () => {
-//   if (Cosc_Clar.value == 'info' ){
-//     Cosc_Clar.value = 'dark';
-//   }else{
-//     Cosc_Clar.value = 'info';
-//   }
-// }
+const Cambia_Color = () => {
+  if (Cosc_Clar.value == 'info') {
+    Cosc_Clar.value = 'dark';
+  } else {
+    Cosc_Clar.value = 'info';
+  }
+}
 
 const Vpaginas = ref(false);
 
@@ -613,5 +651,4 @@ const cargarImagen = async () => {
 
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

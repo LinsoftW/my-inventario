@@ -218,7 +218,7 @@
                     <th>Gestora</th>
                     <th>59.10</th>
                   </tr> -->
-                  <tr v-for="datos in datosPaginados" :key="datos.idcorreo">
+                  <!-- <tr v-for="datos in datosPaginados" :key="datos.idcorreo">
                     <td style="text-align: end;"><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/undraw_profile_1.svg"> <i
                         class="fas fa-circle text-primary"></i></td>
                     <td>{{ datos.direccion }}</td>
@@ -230,13 +230,14 @@
                         @click="borrarU(datos.idcorreo, datos.direccion)" v-b-tooltip.hover title="Eliminar"><span
                           class="fas fa-trash"></span></button>
                     </td>
-                  </tr>
+                  </tr> -->
 
                 </tbody>
               </table>
-              <div class="text-center">
+              <!-- Paginacion -->
+              <!-- <div class="text-center">
                 <nav aria-label="Page navigation example" style="text-align: center;">
-                <label>Mostrando </label>
+                <label>Mostrando &nbsp;</label>
                 <select style="width: 60px" @change="consultar()" v-model="elementPagina">
                   <option value="5">5</option>
                   <option value="10">10</option>
@@ -245,7 +246,7 @@
                   <option value="100">100</option>
                 </select>
 
-                <label>registros </label>
+                <label>&nbsp;registros </label>
                 <ul class="pagination Mestilo btn-sm">
 
                   <li class="page-item" :class="`${disableA}`" @click="obtenerAnterior"><a class="page-link"
@@ -257,7 +258,7 @@
                       href="#">Siguiente</a></li>
                 </ul>
               </nav>
-              </div>
+              </div> -->
 
             </div>
 
@@ -277,74 +278,80 @@
       </div>
 
       <!--Listado de productos -->
-      <div class="col-xl-8 col-lg-7">
-        <div class="card shadow mb-4">
-          <!-- Card Header - Dropdown -->
-          <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-info">PRODUCTOS EN STOCK</h6>
-            <div class="dropdown no-arrow">
-              <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                aria-labelledby="dropdownMenuLink">
-                <div class="dropdown-header">Acciones:</div>
-                <a class="dropdown-item" href="#"><span class="fa fa-cog"></span> Administrar</a>
-                <a class="dropdown-item" href="#"><span class="fa fa-check"></span> Conformar pedidos</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Otros</a>
+        <div class="col-xl-8 col-lg-7">
+          <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+              <h6 class="m-0 font-weight-bold text-info">PRODUCTOS EN STOCK</h6>
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+
+              <div class="table-responsive">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                  <thead>
+                    <tr>
+                      <th>No</th>
+                      <!-- <th>FOTO</th> -->
+                      <th>CÓDIGO</th>
+                      <th>SUCURSAL</th>
+                      <th>DESCRIPCION</th>
+                      <th>OBSERVACIONES</th>
+                      <th>ACCIONES</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="datos in datosPaginados" :key="datos.id">
+                      <td>{{ datos.id }}</td>
+                      <!-- <td style="text-align: end;"><img class="img-profile rounded-circle img-thumbnail"
+                          src="../assets/new/img/undraw_profile_1.svg"> <i class="fas fa-circle text-primary"></i></td> -->
+                      <td>{{ datos.attributes.codigo }}</td>
+                      <td>Sucursal</td>
+                      <td>{{ datos.attributes.descripcion }}</td>
+                      <td>{{ datos.attributes.observacion }}</td>
+                      <td style="text-align: center;">
+                        <button class="btn btn-success btn-sm btn-circle" @click="clickEditar(datos.id)"
+                          v-b-tooltip.hover title="Editar"><span class="fas fa-edit"></span></button>&nbsp;
+                        <button class="btn btn-danger btn-sm btn-circle" @click="borrarU(datos.id, datos.attributes.descripcion)"
+                          v-b-tooltip.hover title="Eliminar"><span class="fas fa-trash"></span></button>
+                      </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+
+                <div class="text-center">
+                  <nav aria-label="Page navigation example" style="text-align: center;">
+                    <label>Mostrando &nbsp;</label>
+                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                      <option value="5">5</option>
+                      <option value="10">10</option>
+                      <option value="20">20</option>
+                      <option value="50">50</option>
+                      <option value="100">100</option>
+                    </select>
+
+                    <label>&nbsp;registros </label>
+                    <ul class="pagination Mestilo btn-sm">
+
+                      <li class="page-item" :class="`${disableA}`" @click="obtenerAnterior"><a class="page-link"
+                          href="#">Anterior</a></li>
+                      <li v-for="pagina in cantidad" class="page-item" v-bind:class="isActivo(pagina)" :key="pagina"
+                        @click="obtenerPagina(pagina)"><a class="page-link" href="#">{{ pagina
+                          }}</a></li>
+                      <li class="page-item" :class="`${disableS}`" @click="obtenerSiguiente"><a class="page-link"
+                          href="#">Siguiente</a></li>
+                    </ul>
+                  </nav>
+                </div>
               </div>
+
             </div>
-          </div>
-          <!-- Card Body -->
-          <div class="card-body">
-
-            <div class="table-responsive">
-              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>FOTO</th>
-                    <th>CÓDIGO</th>
-                    <th>DESCRIPCIÓN</th>
-                    <th>PRECIO</th>
-                    <th>DESCUENTO</th>
-                    <th>ANTICIPO</th>
-                    <th>ESTADO</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th>1</th>
-                    <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/tablet.jpg"
-                        style="width: 50px; height:50px"> </th>
-                    <th>F0093</th>
-                    <th>Tablet Samsung</th>
-                    <th>100usd</th>
-                    <th>5%</th>
-                    <th>0</th>
-                    <th>En Stock</th>
-                  </tr>
-                  <tr>
-                    <th>2</th>
-                    <th><img class="img-profile rounded-circle img-thumbnail" src="../assets/new/img/mochila.jpg"
-                        style="width: 50px; height:50px"></th>
-                    <th>300562</th>
-                    <th>Mochila</th>
-                    <th>60usd</th>
-                    <th>5%</th>
-                    <th>0</th>
-                    <th>Entregado al mensajero</th>
-                  </tr>
-
-                </tbody>
-              </table>
-            </div>
-
           </div>
         </div>
-      </div>
+        <!-- FIN -->
+
 
 
     </div>
@@ -374,7 +381,7 @@ onMounted(async () => {
     // console.log("INICIO")
   // }
   // Cosc_Clar.value = localStorage.getItem('background');
-  // consultar();
+  consultar();
 
 })
 
@@ -565,11 +572,12 @@ const isActivo = (nopage) => {
 }
 
 const consultar = async () => {
-  let response = await axios.get('http://localhost:8000/correos?&searchQuery=' + buscando.value)
+  let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
     .then((response) => {
-      listado.value = response.data;
-      datosSinPaginar.value = response.data;
-      cantidad.value = Math.ceil(response.data.length / elementPagina.value);
+      listado.value = response.data.data;
+      // console.log(response.data)
+      datosSinPaginar.value = response.data.data;
+      cantidad.value = Math.ceil(response.data.data.length / elementPagina.value);
       obtenerPagina(1);
       // router.go();
     });

@@ -119,8 +119,8 @@
         <div class="card shadow mb-4">
           <!-- Card Header - Dropdown -->
           <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-            <h6 class="m-0 font-weight-bold text-info">AGREGUE LOS DATOS DEL NUEVO TRABAJADOR</h6>
-
+            <h6 v-if="editar == false" class="m-0 font-weight-bold text-info"><span class="fa fa-plus"></span> AGREGUE LOS DATOS DEL NUEVO TRABAJADOR</h6>
+            <h6 v-if="editar" class="m-0 font-weight-bold text-info"><span class="fa fa-edit"></span> MODIFICAR LOS DATOS DEL TRABAJADOR</h6>
             <!-- <div class="dropdown no-arrow">
               <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown"
                 aria-haspopup="true" aria-expanded="false">
@@ -143,27 +143,27 @@
             <div class="col-lg-12">
               <div class="">
                 <div class="text-center">
-                  <h1 class="h6 text-gray-900 mb-4">DEBE LLENAR TODOS LOS CAMPOS</h1>
+                  <h1 class="h6 text-gray-900 mb-4">CAMPOS OBLIGATORIOS (<label style="color: red;">*</label>)</h1>
                 </div>
                 <form class="user">
                   <div class="form-group">
-                    <label class="text-info">Correo electrónico:</label>
+                    <label class="text-info">Correo electrónico: <label style="color: red;">*</label></label>
                     <input type="text" class="form-control" id="exampleInputEmail"
                       aria-describedby="emailHelp" v-model="form.email" placeholder="Correo electrónico">
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
-                      <label class="text-info">Nombre (s):</label>
+                      <label class="text-info">Nombre (s): <label style="color: red;">*</label></label>
                       <input type="text" class="form-control" id="snombre"
                         aria-describedby="emailHelp" v-model="form.nombre" placeholder="Nombre (s)">
                     </div>
                     <div class="form-group col-lg-4">
-                      <label class="text-info">Primer apellido:</label>
+                      <label class="text-info">Primer apellido: <label style="color: red;">*</label></label>
                       <input type="text" class="form-control" id="sapellido1"
                         aria-describedby="emailHelp" v-model="form.apellido1" placeholder="Primer apellido">
                     </div>
                     <div class="form-group col-lg-4">
-                      <label class="text-info">Segundo apellido:</label>
+                      <label class="text-info">Segundo apellido: <label style="color: red;">*</label></label>
                       <input type="text" class="form-control" id="sapellido2"
                         aria-describedby="emailHelp" v-model="form.apellido2" placeholder="Segundo apellido">
                     </div>
@@ -175,12 +175,12 @@
                   </div>
                   <div class="row">
                     <div class="form-group col-lg-4">
-                      <label class="text-info">Teléfono:</label>
+                      <label class="text-info">Teléfono: <label style="color: red;">*</label></label>
                       <input type="text" class="form-control" id="susuario"
                         aria-describedby="emailHelp" v-model="form.telefono" placeholder="Número de teléfono">
                     </div>
                     <div class="form-group col-lg-8">
-                      <label class="text-info">Rol:</label>
+                      <label class="text-info">Rol: <label style="color: red;">*</label></label>
                       <select name="rol" id="rol" style="width: 100%; text-align:center" class="text-gray-900 form-control">
                         <option value="Supervisor">Supervisor</option>
                         <option value="Manager">Manager</option>
@@ -190,19 +190,19 @@
                   </div>
 
                   <div class="form-group">
-                    <label class="text-info">Contraseña:</label>
+                    <label class="text-info">Contraseña: <label style="color: red;">*</label></label>
                     <input type="password" v-model="form.passw" class="form-control" id="password"
                       placeholder="Contraseña">
                   </div>
                   <div class="form-group">
-                    <label class="text-info">Repita la contraseña:</label>
+                    <label class="text-info">Repita la contraseña: <label style="color: red;">*</label></label>
                     <input type="password" v-model="form.passw2" class="form-control" id="password2"
                       placeholder="Repita la contraseña">
                   </div>
-                  <div class="form-group">
+                  <!-- <div class="form-group">
                     <label class="text-info">Imagen:</label>
                     <input type="file" class="form-control" id="foto"> Seleccione una foto del usuario...
-                  </div>
+                  </div> -->
 
                   <div class="row">
                     <div class="col-lg-4"></div>
@@ -227,7 +227,7 @@
   </div>
 </template>
 <script setup>
-import { reactive } from 'vue';
+import { reactive, ref } from 'vue';
 
 const form = reactive({
   nombre: '',
@@ -238,6 +238,8 @@ const form = reactive({
   apellido2: '',
   passw2: ''
 })
+
+const editar = ref(false)
 
 </script>
 <style lang="scss">
