@@ -290,7 +290,7 @@
               <div class="table-responsive">
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
-                    <tr>
+                    <tr style="text-align: center;">
                       <th>No</th>
                       <!-- <th>FOTO</th> -->
                       <th>CÓDIGO</th>
@@ -302,18 +302,21 @@
                   </thead>
                   <tbody>
                     <tr v-for="datos in datosPaginados" :key="datos.id">
-                      <td>{{ datos.id }}</td>
+                      <td v-if="datos.attributes.deleted_at == null">{{ datos.id }}</td>
                       <!-- <td style="text-align: end;"><img class="img-profile rounded-circle img-thumbnail"
                           src="../assets/new/img/undraw_profile_1.svg"> <i class="fas fa-circle text-primary"></i></td> -->
-                      <td>{{ datos.attributes.codigo }}</td>
-                      <td>Sucursal</td>
-                      <td>{{ datos.attributes.descripcion }}</td>
-                      <td>{{ datos.attributes.observacion }}</td>
-                      <td style="text-align: center;">
+                      <td v-if="datos.attributes.deleted_at == null">{{ datos.attributes.codigo }}</td>
+                      <td v-if="datos.attributes.deleted_at == null">Sucursal</td>
+                      <td v-if="datos.attributes.deleted_at == null">{{ datos.attributes.descripcion }}</td>
+                      <td v-if="datos.attributes.deleted_at == null">{{ datos.attributes.observacion }}</td>
+                      <td v-if="datos.attributes.deleted_at == null" style="text-align: center;">
                         <button class="btn btn-success btn-sm btn-circle" @click="clickEditar(datos.id)"
                           v-b-tooltip.hover title="Editar"><span class="fas fa-edit"></span></button>&nbsp;
-                        <button class="btn btn-danger btn-sm btn-circle" @click="borrarU(datos.id, datos.attributes.descripcion)"
-                          v-b-tooltip.hover title="Eliminar"><span class="fas fa-trash"></span></button>
+                          <!-- <button class="btn btn-success btn-sm btn-circle" @click="editarUModel"
+                          v-b-tooltip.hover title="Editar"><span class="fas fa-edit"></span></button>&nbsp; -->
+                        <button class="btn btn-danger btn-sm btn-circle"
+                          @click="borrarU(datos.id, datos.attributes.codigo)" v-b-tooltip.hover title="Eliminar"><span
+                            class="fas fa-trash"></span></button>
                       </td>
                     </tr>
 
@@ -324,7 +327,7 @@
                 <div class="text-center">
                   <nav aria-label="Page navigation example" style="text-align: center;">
                     <label>Mostrando &nbsp;</label>
-                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                    <select style="width: 60px" @change="cambiarLimite()" v-model="elementPagina">
                       <option value="5">5</option>
                       <option value="10">10</option>
                       <option value="20">20</option>
@@ -381,9 +384,26 @@ onMounted(async () => {
     // console.log("INICIO")
   // }
   // Cosc_Clar.value = localStorage.getItem('background');
-  consultar();
+  // consultar();
+  listado.value = JSON.parse(localStorage.getItem('ListadoCache'));
+  obtenerListadoLimpio();
 
 })
+
+const cambiarLimite = () => {
+  let i = 0;
+  newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+  datosSinPaginar.value = newListado.value;
+  cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+  obtenerPagina(1);
+}
 
 // CRUD completo
 
@@ -415,6 +435,8 @@ let disableA = ref('');
 let disableS = ref('');
 
 let setTiempoBusca = '';
+
+let cargado = ref(false);
 
 const formProductos = reactive({
   codigo: "",
@@ -489,7 +511,7 @@ const editarU = () => {
 const borrarU = (id, correo) => {
   Swal.fire({
     title: "Confirmación",
-    text: `Está a punto de eliminar el correo: ${correo}`,
+    text: `Está a punto de eliminar el producto: ${correo}`,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
@@ -498,14 +520,16 @@ const borrarU = (id, correo) => {
   }).then((result) => {
     if (result.isConfirmed) {
       // Eliminar //
-      axios.delete(`http://localhost:8000/correos/${id}`)
+      axios.delete(`http://localhost/fullstack/public/api/nom/productos/${id}`)
         .then(() => {
           Swal.fire({
             title: "Eliminado",
-            text: "Elemento eliminado satisfactoriamente.",
+            text: "Producto eliminado satisfactoriamente.",
             icon: "success"
           });
+          cargado.value = false;
           consultar();
+          cancelarU();
         })
 
 
@@ -571,16 +595,60 @@ const isActivo = (nopage) => {
   }
 }
 
+let newListado = ref([]);
+
+let newListadoSucursal = ref([]);
+
+const obtenerListadoLimpio = () => {
+  let i = 0;
+  if (cargado.value = false) {
+    newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+    datosSinPaginar.value = newListado.value;
+    cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+    obtenerPagina(1);
+    cargado.value = true;
+  } else {
+    newListado.value = []
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+    datosSinPaginar.value = newListado.value;
+    cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+    obtenerPagina(1);
+  }
+
+}
+
 const consultar = async () => {
-  let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
-    .then((response) => {
-      listado.value = response.data.data;
-      // console.log(response.data)
-      datosSinPaginar.value = response.data.data;
-      cantidad.value = Math.ceil(response.data.data.length / elementPagina.value);
-      obtenerPagina(1);
-      // router.go();
-    });
+  if (cargado.value == false) {
+    let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
+      .then((response) => {
+        listado.value = response.data.data;
+        obtenerListadoLimpio();
+        // console.log(response.data.data)
+        // datosSinPaginar.value = response.data.data;
+        // cantidad.value = Math.ceil(response.data.data.length / elementPagina.value);
+        // obtenerPagina(1);
+        // cargado.value = true;
+        // router.go();
+      });
+  } else {
+    obtenerListadoLimpio();
+    // datosSinPaginar.value = listado.value;
+    // cantidad.value = Math.ceil(listado.value.length / elementPagina.value);
+    // obtenerPagina(1);
+  }
 
 }
 

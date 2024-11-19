@@ -69,10 +69,44 @@ import Swal from 'sweetalert2';
 
 let listado = ref([]);
 
+let dataCache = ref([]);
+
+const almacenDatosProductos = (Lista) => {
+  if (localStorage.getItem('ListadoCache')) {
+        localStorage.removeItem('ListadoCache');
+    }else{
+      const parsed = JSON.stringify(Lista);
+      localStorage.setItem('ListadoCache', parsed);
+      dataCache.value = JSON.parse(localStorage.getItem('ListadoCache'));
+    }
+}
+
+const almacenDatosSucursales = (Lista) => {
+  if (localStorage.getItem('ListadoCacheSucursal')) {
+        localStorage.removeItem('ListadoCacheSucursal');
+    }else{
+      const parsed = JSON.stringify(Lista);
+      localStorage.setItem('ListadoCacheSucursal', parsed);
+      dataCache.value = JSON.parse(localStorage.getItem('ListadoCacheSucursal'));
+    }
+}
+
 const consultar = async () => {
-  let response = await axios.get('http://localhost:8000/correos')
+  let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
     .then((response) => {
-      listado.value = response.data;
+      listado.value = response.data.data;
+      almacenDatosProductos(listado.value);
+      // console.log(listado.value)
+    })
+
+}
+
+const consultarSucursales = async () => {
+  let response = await axios.get('http://localhost/fullstack/public/api/nom/sucursals')
+    .then((response) => {
+      listado.value = response.data.data;
+      almacenDatosSucursales(listado.value);
+      // console.log(listado.value)
     })
 
 }
@@ -85,9 +119,12 @@ const form = reactive({
 let bodyLogin1 = document.getElementById('page-top');
 
 onMounted(async () => {
+  localStorage.setItem('ListadoCache',[]);
+  localStorage.setItem('ListadoCacheSucursal',[]);
   bodyLogin1.classList.add('bg-gradient-info');
   bodyLogin1.classList.remove('sidebar-toggled');
-  // consultar();
+  // await consultar();
+  // await consultarSucursales();
 })
 
 const successFull = (mensaje, posicion) => {
@@ -105,7 +142,9 @@ const successFull = (mensaje, posicion) => {
   })
 }
 
-const autenticate = () => {
+const tiempo = ref(0);
+
+const autenticate = async () => {
   // for (let index = 0; index < listado.value.length; index++) {
   //   if (form.nombre == listado.value[index].direccion && form.passw == listado.value[index].password) {
   //     localStorage.setItem("userName", form.nombre);
@@ -123,6 +162,15 @@ const autenticate = () => {
   // }
   if (form.nombre == 'admin' && form.passw == '123') {
     localStorage.setItem("userName", form.nombre);
+    // esperar();
+    const start = new Date();
+    await consultar();
+    await consultarSucursales();
+    const end = new Date();
+    tiempo.value = end.getTime() - start.getTime();
+    // console.log(tiempo.value)
+    // esperar();
+    // console.log(end.getTime() - start.getTime(), "ms");
     successFull('Bienvenido al sistema', 'top-end');
     // window.location = '/inicio';
     router.push('/inicio')
@@ -133,6 +181,34 @@ const autenticate = () => {
       text: "Error de autenticación",
     });
   }
+}
+
+let timerInterval;
+
+const esperar = () => {
+  Swal.fire({
+  title: "Espere unos instantes...",
+  html: "Estaremos listos en <b></b> milliseconds.",
+  timer: `${tiempo.value}`,
+  timerProgressBar: true,
+  didOpen: () => {
+    Swal.showLoading();
+    const timer = Swal.getPopup().querySelector("b");
+    timerInterval = setInterval(() => {
+      timer.textContent = `${Swal.getTimerLeft()}`;
+    }, 100);
+  },
+  willClose: () => {
+    clearInterval(timerInterval);
+  }
+}).then((result) => {
+  /* Read more about handling dismissals below */
+  if (result.dismiss === Swal.DismissReason.timer) {
+    // console.log(tiempo.value)
+    // console.log("I was closed by the timer");
+    // router.push('/inicio')
+  }
+});
 }
 </script>
 <style lang="scss" scoped></style>

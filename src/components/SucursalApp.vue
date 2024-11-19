@@ -105,7 +105,7 @@
 
                     <label>Mostrando &nbsp;</label>
 
-                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                    <select style="width: 60px" @change="cambiarLimite()" v-model="elementPagina">
 
                       <option value="5">5</option>
 
@@ -391,10 +391,27 @@ const cancelarU = () => {
   formSucursal.data.attributes.abreviatura = '';
 }
 
+const cambiarLimite = () => {
+  let i = 0;
+  newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+  datosSinPaginar.value = newListado.value;
+  cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+  obtenerPagina(1);
+}
+
 onMounted(async => {
-  if (cargado.value == false) {
-    consultar();
-  }
+  listado.value = JSON.parse(localStorage.getItem('ListadoCacheSucursal'));
+  obtenerListadoLimpio();
+  // if (cargado.value == false) {
+  //   consultar();
+  // }
 
 })
 

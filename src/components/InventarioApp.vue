@@ -169,7 +169,7 @@
                 <div class="text-center">
                   <nav aria-label="Page navigation example" style="text-align: center;">
                     <label>Mostrando &nbsp;</label>
-                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                    <select style="width: 60px" @change="cambiarLimite()" v-model="elementPagina">
                       <option value="5">5</option>
                       <option value="10">10</option>
                       <option value="20">20</option>
@@ -431,11 +431,22 @@ const obtenerListadoLimpio = () => {
 
 }
 
+const almacenDatosProductos = (Lista) => {
+  // if (localStorage.getItem('ListadoCache')) {
+      localStorage.removeItem('ListadoCache');
+  //   }else{
+      const parsed = JSON.stringify(Lista);
+      localStorage.setItem('ListadoCache', parsed);
+      // dataCache.value = JSON.parse(localStorage.getItem('ListadoCache'));
+    // }
+}
+
 const consultar = async () => {
   if (cargado.value == false) {
     let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
       .then((response) => {
         listado.value = response.data.data;
+        almacenDatosProductos(listado.value);
         obtenerListadoLimpio();
         // console.log(response.data.data)
         // datosSinPaginar.value = response.data.data;
@@ -445,6 +456,7 @@ const consultar = async () => {
         // router.go();
       });
   } else {
+    almacenDatosProductos(listado.value);
     obtenerListadoLimpio();
     // datosSinPaginar.value = listado.value;
     // cantidad.value = Math.ceil(listado.value.length / elementPagina.value);
@@ -453,11 +465,64 @@ const consultar = async () => {
 
 }
 
+const cancelarU = () => {
+  editar.value = false;
+  formProductos.data.attributes.descripcion = '';
+  formProductos.data.attributes.codigo = '';
+  formProductos.data.attributes.observacion = '';
+}
+
+const borrarU = (id, correo) => {
+  Swal.fire({
+    title: "Confirmación",
+    text: `Está a punto de eliminar el producto: ${correo}`,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, eliminar"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Eliminar //
+      axios.delete(`http://localhost/fullstack/public/api/nom/productos/${id}`)
+        .then(() => {
+          Swal.fire({
+            title: "Eliminado",
+            text: "Producto eliminado satisfactoriamente.",
+            icon: "success"
+          });
+          cargado.value = false;
+          consultar();
+          cancelarU();
+        })
+
+
+    }
+  });
+}
+
+const cambiarLimite = () => {
+  let i = 0;
+  newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+  datosSinPaginar.value = newListado.value;
+  cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+  obtenerPagina(1);
+}
+
 onMounted(async => {
-  if (cargado.value == false) {
-    consultar();
-    // consultarSucursales();
-  }
+  listado.value = JSON.parse(localStorage.getItem('ListadoCache'));
+  obtenerListadoLimpio();
+  // if (cargado.value == false) {
+  //   consultar();
+  //   // consultarSucursales();
+  // }
 
 })
 

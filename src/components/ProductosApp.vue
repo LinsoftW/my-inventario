@@ -45,7 +45,7 @@
                       <td v-if="datos.attributes.deleted_at == null" style="text-align: center;">
                         <button class="btn btn-success btn-sm btn-circle" @click="clickEditar(datos.id)"
                           v-b-tooltip.hover title="Editar"><span class="fas fa-edit"></span></button>&nbsp;
-                          <!-- <button class="btn btn-success btn-sm btn-circle" @click="editarUModel"
+                        <!-- <button class="btn btn-success btn-sm btn-circle" @click="editarUModel"
                           v-b-tooltip.hover title="Editar"><span class="fas fa-edit"></span></button>&nbsp; -->
                         <button class="btn btn-danger btn-sm btn-circle"
                           @click="borrarU(datos.id, datos.attributes.codigo)" v-b-tooltip.hover title="Eliminar"><span
@@ -60,7 +60,7 @@
                 <div class="text-center">
                   <nav aria-label="Page navigation example" style="text-align: center;">
                     <label>Mostrando &nbsp;</label>
-                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                    <select style="width: 60px" @change="cambiarLimite()" v-model="elementPagina">
                       <option value="5">5</option>
                       <option value="10">10</option>
                       <option value="20">20</option>
@@ -96,7 +96,8 @@
               <h6 class="m-0 font-weight-bold text-info" v-if="editar == false"><span class="fa fa-plus"></span> AGREGAR
                 NUEVO PRODUCTO </h6>
               <h6 class="m-0 font-weight-bold text-info" v-if="editar == true"><span class="fa fa-edit"></span>
-                MODIFICAR LOS DATOS DEL PRODUCTO <br>(<label style="color: red;">{{ formProductos.data.attributes.codigo }}</label>)</h6>
+                MODIFICAR LOS DATOS DEL PRODUCTO <br>(<label style="color: red;">{{ formProductos.data.attributes.codigo
+                  }}</label>)</h6>
             </div>
             <!-- Card Body -->
             <div class="card-body">
@@ -247,6 +248,7 @@ const agregarU = () => {
   axios.post('http://localhost/fullstack/public/api/nom/productos', formProductos)
     .then((response) => {
       cargado.value = false;
+      // almacenDatosProductos()
       consultar();
       formProductos.data.attributes.observacion = ''
       formProductos.data.attributes.descripcion = '';
@@ -333,6 +335,21 @@ let newListado = ref([]);
 
 let newListadoSucursal = ref([]);
 
+const cambiarLimite = () => {
+  let i = 0;
+  newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+  datosSinPaginar.value = newListado.value;
+  cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+  obtenerPagina(1);
+}
+
 const obtenerListadoLimpio = () => {
   let i = 0;
   if (cargado.value = false) {
@@ -367,17 +384,27 @@ const obtenerListadoLimpio = () => {
 const obtenerListadoLimpioSucursales = () => {
   let i = 0;
   // if (cargado.value = false) {
-    newListadoSucursal.value = [];
-    for (let index = 0; index < listadoSucursales.value.length; index++) {
-      const element = listadoSucursales.value[index];
-      if (element.attributes.deleted_at == null) {
-        newListadoSucursal.value[i] = element;
-        i++;
-      }
+  newListadoSucursal.value = [];
+  for (let index = 0; index < listadoSucursales.value.length; index++) {
+    const element = listadoSucursales.value[index];
+    if (element.attributes.deleted_at == null) {
+      newListadoSucursal.value[i] = element;
+      i++;
     }
-    return newListadoSucursal;
+  }
+  return newListadoSucursal;
   // }
 
+}
+
+const almacenDatosProductos = (Lista) => {
+  // if (localStorage.getItem('ListadoCache')) {
+      localStorage.removeItem('ListadoCache');
+  //   }else{
+      const parsed = JSON.stringify(Lista);
+      localStorage.setItem('ListadoCache', parsed);
+      // dataCache.value = JSON.parse(localStorage.getItem('ListadoCache'));
+    // }
 }
 
 const consultar = async () => {
@@ -385,6 +412,8 @@ const consultar = async () => {
     let response = await axios.get('http://localhost/fullstack/public/api/nom/productos')
       .then((response) => {
         listado.value = response.data.data;
+        // console.log(listado.value)
+        almacenDatosProductos(listado.value);
         obtenerListadoLimpio();
         // console.log(response.data.data)
         // datosSinPaginar.value = response.data.data;
@@ -394,6 +423,8 @@ const consultar = async () => {
         // router.go();
       });
   } else {
+    // console.log(listado.value)
+    almacenDatosProductos(listado.value);
     obtenerListadoLimpio();
     // datosSinPaginar.value = listado.value;
     // cantidad.value = Math.ceil(listado.value.length / elementPagina.value);
@@ -405,18 +436,18 @@ const consultar = async () => {
 const editarUModel = async () => {
   await Swal.fire({
 
-  input: "textarea",
-  inputLabel: `Modificar datos del producto: ` + `${formProductos.data.attributes.codigo}`,
-  inputPlaceholder: "Observaciones del producto",
-  inputAttributes: {
-    "aria-label": "Observaciones del producto"
-  },
-  showCancelButton: true,
-  confirmButtonText: "Modificar"
-});
-if (text) {
-  Swal.fire(text);
-}
+    input: "textarea",
+    inputLabel: `Modificar datos del producto: ` + `${formProductos.data.attributes.codigo}`,
+    inputPlaceholder: "Observaciones del producto",
+    inputAttributes: {
+      "aria-label": "Observaciones del producto"
+    },
+    showCancelButton: true,
+    confirmButtonText: "Modificar"
+  });
+  if (text) {
+    Swal.fire(text);
+  }
 }
 
 const consultarSucursales = async () => {
@@ -528,10 +559,14 @@ const cancelarU = () => {
 }
 
 onMounted(async => {
-  if (cargado.value == false) {
-    consultar();
-    consultarSucursales();
-  }
+  listado.value = JSON.parse(localStorage.getItem('ListadoCache'));
+  obtenerListadoLimpio();
+  listadoSucursales.value = JSON.parse(localStorage.getItem('ListadoCacheSucursal'));
+  listadoSucursales = obtenerListadoLimpioSucursales();
+  // if (cargado.value == false) {
+  //   consultar();
+  //   consultarSucursales();
+  // }
 
 })
 </script>

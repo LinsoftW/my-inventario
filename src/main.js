@@ -1,10 +1,10 @@
 import './assets/main.css';
 // import '/src/assets/jquery.min.js'
 // import '/src/assets/new/vendor/jquery/jquery.min.js'
-import '/src/assets/new/vendor/jquery/jquery.min.js';
+import '/src/assets/jquery.min.js';
 import '/src/assets/new/vendor/bootstrap/js/bootstrap.bundle.min.js';
-import '/src/assets/new/vendor/jquery-easing/jquery.easing.min.js';
-import '/src/assets/new/js/sb-admin-2.min.js';
+import '/src/assets/jquery.easing.min.js';
+import '/src/assets/sb-admin-2.min.js';
 // import { tooltip } from './assets/new/css/bootstrap'
 // import Swal from 'sweetalert2';
 

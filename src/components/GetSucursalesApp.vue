@@ -113,7 +113,7 @@
 
                     <label>Mostrando &nbsp;</label>
 
-                    <select style="width: 60px" @change="consultar()" v-model="elementPagina">
+                    <select style="width: 60px" @change="cambiarLimite()" v-model="elementPagina">
 
                       <option value="5">5</option>
 
@@ -406,6 +406,16 @@ const formSucursal = reactive({
   }
 })
 
+const almacenDatosSucursales = (Lista) => {
+  // if (localStorage.getItem('ListadoCacheSucursal')) {
+  //       localStorage.removeItem('ListadoCacheSucursal');
+  //   }else{
+      const parsed = JSON.stringify(Lista);
+      localStorage.setItem('ListadoCacheSucursal', parsed);
+      // dataCache.value = JSON.parse(localStorage.getItem('ListadoCacheSucursal'));
+    // }
+}
+
 const agregarU = () => {
   // console.log(formSucursal.object)
   axios.post('http://localhost/fullstack/public/api/nom/sucursals', formSucursal)
@@ -531,6 +541,7 @@ const consultar = async () => {
     let response = await axios.get('http://localhost/fullstack/public/api/nom/sucursals')
       .then((response) => {
         listado.value = response.data.data;
+        almacenDatosSucursales(listado.value);
         // console.log(response.data)
         obtenerListadoLimpio()
         // datosSinPaginar.value = response.data.data;
@@ -540,6 +551,7 @@ const consultar = async () => {
         // router.go();
       });
   } else {
+    almacenDatosSucursales(listado.value);
     obtenerListadoLimpio()
     // datosSinPaginar.value = listado.value;
     // cantidad.value = Math.ceil(listado.value.length / elementPagina.value);
@@ -635,10 +647,27 @@ const cancelarU = () => {
   formSucursal.data.attributes.abreviatura = '';
 }
 
+const cambiarLimite = () => {
+  let i = 0;
+  newListado.value = [];
+    for (let index = 0; index < listado.value.length; index++) {
+      const element = listado.value[index];
+      if (element.attributes.deleted_at == null) {
+        newListado.value[i] = element;
+        i++;
+      }
+    }
+  datosSinPaginar.value = newListado.value;
+  cantidad.value = Math.ceil(newListado.value.length / elementPagina.value);
+  obtenerPagina(1);
+}
+
 onMounted(async => {
-  if (cargado.value == false) {
-    consultar();
-  }
+  listado.value = JSON.parse(localStorage.getItem('ListadoCacheSucursal'));
+  obtenerListadoLimpio();
+  // if (cargado.value == false) {
+  //   consultar();
+  // }
 
 })
 </script>
