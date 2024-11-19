@@ -618,6 +618,8 @@ const salir = () => {
   }).then((result) => {
     if (result.isConfirmed) {
       localStorage.removeItem('userName');
+      localStorage.removeItem('ListadoCache');
+      localStorage.removeItem('ListadoCacheSucursal');
       router.push('/login')
     }
   });

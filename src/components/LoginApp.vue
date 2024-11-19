@@ -168,7 +168,7 @@ const autenticate = async () => {
     await consultarSucursales();
     const end = new Date();
     tiempo.value = end.getTime() - start.getTime();
-    // console.log(tiempo.value)
+    console.log(tiempo.value)
     // esperar();
     // console.log(end.getTime() - start.getTime(), "ms");
     successFull('Bienvenido al sistema', 'top-end');
