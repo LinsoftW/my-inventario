@@ -1,0 +1,37 @@
+{
+  "name": "appfull",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "lint": "eslint . --fix",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/cli": "^6.1.2",
+    "@capacitor/core": "^6.1.2",
+    "@fortawesome/fontawesome-free": "^6.6.0",
+    "axios": "^1.7.7",
+    "jquery": "^3.7.1",
+    "sass-loader": "16.0.3",
+    "sweetalert2": "^11.6.13",
+    "vue": "^3.5.12",
+    "vue-material-design-icons": "^5.3.1",
+    "vue-router": "^4.4.5",
+    "vue3-popper": "^1.5.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.14.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "eslint": "^9.13.0",
+    "eslint-plugin-vue": "9.30.0",
+    "gh-pages": "^6.2.0",
+    "sass": "1.80.6",
+    "vite": "^5.4.10"
+  }
+}
